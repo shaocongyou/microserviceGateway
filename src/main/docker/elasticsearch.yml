@@ -3,13 +3,11 @@ name: microservicegateway
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
-    # volumes:
-    #   - ~/volumes/jhipster/microserviceGateway/elasticsearch/:/usr/share/elasticsearch/data/
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data  # 添加数据持久化
     ports:
-      - 127.0.0.1:9200:9200
-      - 127.0.0.1:9300:9300
+      - "9200:9200"
+      - "9300:9300"
     environment:
       - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
       - 'discovery.type=single-node'
@@ -19,3 +17,7 @@ services:
       interval: 5s
       timeout: 10s
       retries: 10
+    restart: unless-stopped
+
+volumes:
+  elasticsearch_data:

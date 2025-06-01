@@ -6,12 +6,14 @@ services:
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:8300:8300
-      - 127.0.0.1:8500:8500
-      - 127.0.0.1:8600:8600
+      # 修改：移除127.0.0.1限制
+      - "8300:8300"
+      - "8500:8500"
+      - "8600:8600"
     command: consul agent -dev -ui -client 0.0.0.0 -log-level=INFO
     labels:
       org.springframework.boot.ignore: true
+    restart: unless-stopped
 
   consul-config-loader:
     image: jhipster/consul-config-loader:v0.4.1
@@ -27,3 +29,6 @@ services:
       # - CONFIG_MODE=git
     labels:
       org.springframework.boot.ignore: true
+    depends_on:
+      - consul
+    restart: on-failure:5  # 修改：失败时自动重启，最多5次

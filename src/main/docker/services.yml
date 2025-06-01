@@ -25,3 +25,9 @@ services:
     extends:
       file: ./kafka.yml
       service: kafka
+
+# 添加所有需要的 volumes 定义
+volumes:
+  mysql_data:
+  elasticsearch_data:
+  keycloak_data:
