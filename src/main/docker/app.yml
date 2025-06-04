@@ -15,14 +15,13 @@ services:
       - SPRING_LIQUIBASE_URL=jdbc:mysql://mysql:3306/microservicegateway?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
       - SPRING_LIQUIBASE_USER=root
       - SPRING_LIQUIBASE_PASSWORD=mysql_password_123
-      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=https://keycloak.muscle8.top/realms/jhipster
+      - SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_OIDC_ISSUER_URI=http://keycloak:9080/realms/jhipster
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_ID=web_app
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_CLIENT_SECRET=web_app
-      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_OIDC_REDIRECT_URI=https://gateway.muscle8.top/login/oauth2/code/oidc
       - SPRING_ELASTICSEARCH_URIS=http://elasticsearch:9200
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
     ports:
-      - "8080:8080"
+      - '8080:8080'
     healthcheck:
       test:
         - CMD

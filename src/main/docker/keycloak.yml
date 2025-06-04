@@ -5,9 +5,12 @@ services:
     image: quay.io/keycloak/keycloak:26.2.3
     command: 'start-dev --import-realm'
     volumes:
+      # Windows路径挂载方式
       - ./realm-config:/opt/keycloak/data/import
-      - ./realm-config/keycloak-health-check.sh:/opt/keycloak/health-check.sh
+      - ./realm-config/keycloak-health-check.sh:/opt/keycloak/health-check.sh:ro
       - keycloak_data:/opt/keycloak/data
+    # 添加user参数解决权限问题
+    user: '0:0' # 以root用户运行，解决Windows权限问题
     environment:
       - KC_DB=dev-file
       - KEYCLOAK_ADMIN=admin
@@ -17,23 +20,17 @@ services:
       - KC_HTTPS_PORT=9443
       - KC_HEALTH_ENABLED=true
       - KC_HTTP_MANAGEMENT_PORT=9990
-      - KC_HOSTNAME=keycloak.muscle8.top
       - KC_HOSTNAME_STRICT=false
-      - KC_PROXY=edge  # 这个很重要，告诉Keycloak它在代理后面
+      - KC_PROXY=edge # 这个很重要，告诉Keycloak它在代理后面
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT_HTTPS=false
-      # 关键：告诉Keycloak前端URL是HTTPS，即使后端是HTTP
-      - KC_FRONTEND_URL=https://keycloak.muscle8.top
       # 信任代理的header
       - KC_PROXY_HEADERS=xforwarded
-      # 强制所有URL生成为HTTPS
-      - KC_HOSTNAME_URL=https://keycloak.muscle8.top
-      - KC_HOSTNAME_ADMIN_URL=https://keycloak.muscle8.top
       # 额外的代理配置
       - PROXY_ADDRESS_FORWARDING=true
     ports:
-      - "9080:9080"
-      - "9443:9443"
+      - '9080:9080'
+      - '9443:9443'
     healthcheck:
       test: 'bash /opt/keycloak/health-check.sh'
       interval: 10s
