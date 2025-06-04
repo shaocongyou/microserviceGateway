@@ -62,7 +62,9 @@ spring:
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
-    url: jdbc:mysql://localhost:3306/microserviceGateway?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/microserviceGateway?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   r2dbc:
@@ -117,3 +119,6 @@ jhipster:
 # ===================================================================
 
 # application:
+
+DB_USER: root
+DB_PASSWORD: mysql_password_123
