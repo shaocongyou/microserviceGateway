@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20250606084909"
+  },
+  "applications": "*",
+  "documentation": "规范流程。",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "isActive",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "specification",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "userLogin",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "microserviceName": "microservicePersonalInformation",
+  "name": "StandardProcedures",
+  "pagination": "pagination",
+  "relationships": [],
+  "service": "serviceImpl"
+}
