@@ -1,202 +1,236 @@
 <template>
-  <b-navbar data-cy="navbar" toggleable="md" type="dark" class="jh-navbar">
-    <b-navbar-brand class="logo" b-link to="/">
+  <div class="jh-sidebar" data-cy="navbar">
+    <!-- Logo Brand -->
+    <div class="sidebar-brand" b-link to="/">
       <span class="logo-img"></span>
-      <span class="navbar-title">MicroserviceGateway</span> <span class="navbar-version" style="display: none">{{ version }}</span>
-    </b-navbar-brand>
-    <b-navbar-toggle
-      right
-      class="jh-navbar-toggler d-lg-none"
-      href="javascript:void(0);"
-      data-toggle="collapse"
-      target="header-tabs"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <font-awesome-icon icon="bars" />
-    </b-navbar-toggle>
+      <span class="navbar-title">MicroserviceGateway</span>
+      <span class="navbar-version" style="display: none">{{ version }}</span>
+    </div>
 
-    <b-collapse is-nav id="header-tabs">
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item to="/" exact>
-          <span>
-            <font-awesome-icon icon="home" />
-            <span>Home</span>
-          </span>
-        </b-nav-item>
-        <b-nav-item-dropdown right id="entity-menu" v-if="authenticated" active-class="active" class="pointer" data-cy="entity">
-          <template #button-content>
-            <span class="navbar-dropdown-menu">
-              <font-awesome-icon icon="th-list" />
-              <span class="no-bold">Entities</span>
-            </span>
-          </template>
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+      <!-- Home -->
+      <router-link to="/" exact class="nav-item">
+        <font-awesome-icon icon="home" />
+        <span>Home</span>
+      </router-link>
+
+      <!-- Entities Menu -->
+      <div v-if="authenticated" class="nav-item-group">
+        <div class="nav-item-header">
+          <font-awesome-icon icon="th-list" />
+          <span>Entities</span>
+        </div>
+        <div class="nav-submenu">
           <entities-menu></entities-menu>
-          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown
-          right
-          id="admin-menu"
-          v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
-          :class="{ 'router-link-active': subIsActive('/admin') }"
-          active-class="active"
-          class="pointer"
-          data-cy="adminMenu"
-        >
-          <template #button-content>
-            <span class="navbar-dropdown-menu">
-              <font-awesome-icon icon="users-cog" />
-              <span class="no-bold">Administration</span>
-            </span>
-          </template>
-          <b-dropdown-item to="/admin/gateway" active-class="active">
+        </div>
+      </div>
+
+      <!-- Administration Menu -->
+      <div v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated" class="nav-item-group">
+        <div class="nav-item-header">
+          <font-awesome-icon icon="users-cog" />
+          <span>Administration</span>
+        </div>
+        <div class="nav-submenu">
+          <router-link to="/admin/gateway" class="nav-subitem">
             <font-awesome-icon icon="road" />
             <span>Gateway</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/metrics" active-class="active">
+          </router-link>
+          <router-link to="/admin/metrics" class="nav-subitem">
             <font-awesome-icon icon="tachometer-alt" />
             <span>Metrics</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/health" active-class="active">
+          </router-link>
+          <router-link to="/admin/health" class="nav-subitem">
             <font-awesome-icon icon="heart" />
             <span>Health</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/configuration" active-class="active">
+          </router-link>
+          <router-link to="/admin/configuration" class="nav-subitem">
             <font-awesome-icon icon="cogs" />
             <span>Configuration</span>
-          </b-dropdown-item>
-          <b-dropdown-item to="/admin/logs" active-class="active">
+          </router-link>
+          <router-link to="/admin/logs" class="nav-subitem">
             <font-awesome-icon icon="tasks" />
             <span>Logs</span>
-          </b-dropdown-item>
-          <b-dropdown-item v-if="openAPIEnabled" to="/admin/docs" active-class="active">
+          </router-link>
+          <router-link v-if="openAPIEnabled" to="/admin/docs" class="nav-subitem">
             <font-awesome-icon icon="book" />
             <span>API</span>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown
-          right
-          href="javascript:void(0);"
-          id="account-menu"
-          :class="{ 'router-link-active': subIsActive('/account') }"
-          active-class="active"
-          class="pointer"
-          data-cy="accountMenu"
-        >
-          <template #button-content>
-            <span class="navbar-dropdown-menu">
-              <font-awesome-icon icon="user" />
-              <span class="no-bold">Account</span>
-            </span>
-          </template>
-          <b-dropdown-item data-cy="logout" v-if="authenticated" @click="logout()" id="logout" active-class="active">
+          </router-link>
+        </div>
+      </div>
+
+      <!-- Account Menu -->
+      <div class="nav-item-group">
+        <div class="nav-item-header">
+          <font-awesome-icon icon="user" />
+          <span>Account</span>
+        </div>
+        <div class="nav-submenu">
+          <a v-if="authenticated" @click="logout()" class="nav-subitem" data-cy="logout">
             <font-awesome-icon icon="sign-out-alt" />
             <span>Sign out</span>
-          </b-dropdown-item>
-          <b-dropdown-item data-cy="login" v-if="!authenticated" @click="showLogin()" id="login" active-class="active">
+          </a>
+          <a v-if="!authenticated" @click="showLogin()" class="nav-subitem" data-cy="login">
             <font-awesome-icon icon="sign-in-alt" />
             <span>Sign in</span>
-          </b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script lang="ts" src="./jhi-navbar.component.ts"></script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* ==========================================================================
-    Navbar
+    Sidebar Navigation
     ========================================================================== */
-.navbar-version {
-  font-size: 0.65em;
-  color: #ccc;
-}
-
-.jh-navbar {
+.jh-sidebar {
   background-color: #353d47;
-  padding: 0.2em 1em;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.jh-navbar .profile-image {
-  margin: -10px 0;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+.sidebar-brand {
+  padding: 20px 15px;
+  border-bottom: 1px solid #444;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
 }
 
-.jh-navbar .dropdown-item.active,
-.jh-navbar .dropdown-item.active:focus,
-.jh-navbar .dropdown-item.active:hover {
-  background-color: #353d47;
-}
-
-.jh-navbar .dropdown-toggle::after {
-  margin-left: 0.15em;
-}
-
-.jh-navbar ul.navbar-nav {
-  padding: 0.5em;
-}
-
-.jh-navbar .navbar-nav .nav-item {
-  margin-left: 1.5rem;
-}
-
-.jh-navbar a.nav-link,
-.jh-navbar .no-bold {
-  font-weight: 400;
-}
-
-.jh-navbar .jh-navbar-toggler {
-  color: #ccc;
-  font-size: 1.5em;
-  padding: 10px;
-}
-
-.jh-navbar .jh-navbar-toggler:hover {
-  color: #fff;
-}
-
-@media screen and (min-width: 768px) {
-  .jh-navbar-toggler {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 768px) and (max-width: 1150px) {
-  span span {
-    display: none;
-  }
+.sidebar-brand:hover {
+  color: white;
+  text-decoration: none;
 }
 
 .navbar-title {
-  display: inline-block;
   color: white;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+.navbar-version {
+  font-size: 0.65em;
+  color: #ccc;
+  margin-left: 5px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 10px 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #ccc;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background-color: #444;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-item.router-link-active {
+  background-color: #444;
+  color: white;
+  border-left-color: #007bff;
+}
+
+.nav-item-group {
+  margin-bottom: 5px;
+}
+
+.nav-item-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #ccc;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-item-header:hover {
+  background-color: #444;
+  color: white;
+}
+
+.nav-submenu {
+  background-color: #2c3338;
+}
+
+.nav-subitem {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px 10px 40px;
+  color: #bbb;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.nav-subitem:hover {
+  background-color: #444;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-subitem.router-link-active {
+  background-color: #444;
+  color: white;
+  border-left: 3px solid #007bff;
+}
+
+.nav-item svg,
+.nav-item-header svg,
+.nav-subitem svg {
+  margin-right: 10px;
+  width: 16px;
+  min-width: 16px;
 }
 
 /* ==========================================================================
     Logo styles
     ========================================================================== */
-.navbar-brand.logo {
-  padding: 0 7px;
-}
-
-.logo .logo-img {
-  height: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  width: 45px;
-}
-
 .logo-img {
-  height: 100%;
+  height: 35px;
+  width: 35px;
   background: url('/content/images/logo-jhipster.png') no-repeat center center;
   background-size: contain;
-  width: 100%;
   filter: drop-shadow(0 0 0.05rem white);
-  margin: 0 5px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+    Responsive
+    ========================================================================== */
+@media screen and (max-width: 768px) {
+  .jh-sidebar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .jh-sidebar.open {
+    transform: translateX(0);
+  }
 }
 </style>
