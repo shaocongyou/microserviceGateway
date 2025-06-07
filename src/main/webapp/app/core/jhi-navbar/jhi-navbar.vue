@@ -17,22 +17,28 @@
 
       <!-- Entities Menu -->
       <div v-if="authenticated" class="nav-item-group">
-        <div class="nav-item-header">
-          <font-awesome-icon icon="th-list" />
-          <span>Entities</span>
+        <div class="nav-item-header" @click="toggleSubmenu('entities')">
+          <div class="nav-item-content">
+            <font-awesome-icon icon="th-list" />
+            <span>Entities</span>
+          </div>
+          <font-awesome-icon :icon="submenus.entities ? 'chevron-down' : 'chevron-right'" class="nav-arrow" />
         </div>
-        <div class="nav-submenu">
+        <div class="nav-submenu" :class="{ expanded: submenus.entities }">
           <entities-menu></entities-menu>
         </div>
       </div>
 
       <!-- Administration Menu -->
       <div v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated" class="nav-item-group">
-        <div class="nav-item-header">
-          <font-awesome-icon icon="users-cog" />
-          <span>Administration</span>
+        <div class="nav-item-header" @click="toggleSubmenu('admin')">
+          <div class="nav-item-content">
+            <font-awesome-icon icon="users-cog" />
+            <span>Administration</span>
+          </div>
+          <font-awesome-icon :icon="submenus.admin ? 'chevron-down' : 'chevron-right'" class="nav-arrow" />
         </div>
-        <div class="nav-submenu">
+        <div class="nav-submenu" :class="{ expanded: submenus.admin }">
           <router-link to="/admin/gateway" class="nav-subitem">
             <font-awesome-icon icon="road" />
             <span>Gateway</span>
@@ -62,11 +68,14 @@
 
       <!-- Account Menu -->
       <div class="nav-item-group">
-        <div class="nav-item-header">
-          <font-awesome-icon icon="user" />
-          <span>Account</span>
+        <div class="nav-item-header" @click="toggleSubmenu('account')">
+          <div class="nav-item-content">
+            <font-awesome-icon icon="user" />
+            <span>Account</span>
+          </div>
+          <font-awesome-icon :icon="submenus.account ? 'chevron-down' : 'chevron-right'" class="nav-arrow" />
         </div>
-        <div class="nav-submenu">
+        <div class="nav-submenu" :class="{ expanded: submenus.account }">
           <a v-if="authenticated" @click="logout()" class="nav-subitem" data-cy="logout">
             <font-awesome-icon icon="sign-out-alt" />
             <span>Sign out</span>
@@ -144,9 +153,9 @@
 }
 
 .nav-item.router-link-active {
-  background-color: #444;
+  background-color: #28a745;
   color: white;
-  border-left-color: #007bff;
+  border-left-color: #20c997;
 }
 
 .nav-item-group {
@@ -156,6 +165,7 @@
 .nav-item-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 12px 20px;
   color: #ccc;
   font-weight: 500;
@@ -168,8 +178,26 @@
   color: white;
 }
 
+.nav-item-content {
+  display: flex;
+  align-items: center;
+}
+
+.nav-arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+  opacity: 0.7;
+}
+
 .nav-submenu {
   background-color: #2c3338;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.nav-submenu.expanded {
+  max-height: 500px;
 }
 
 .nav-subitem {
@@ -180,6 +208,7 @@
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
+  border-left: 3px solid transparent;
 }
 
 .nav-subitem:hover {
@@ -189,13 +218,13 @@
 }
 
 .nav-subitem.router-link-active {
-  background-color: #444;
+  background-color: #17a2b8;
   color: white;
-  border-left: 3px solid #007bff;
+  border-left-color: #138496;
 }
 
 .nav-item svg,
-.nav-item-header svg,
+.nav-item-content svg,
 .nav-subitem svg {
   margin-right: 10px;
   width: 16px;

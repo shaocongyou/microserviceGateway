@@ -19,6 +19,7 @@
   text-decoration: none;
   transition: all 0.2s ease;
   cursor: pointer;
+  border-left: 3px solid transparent;
 }
 
 .nav-subitem:hover {
@@ -28,9 +29,9 @@
 }
 
 .nav-subitem.router-link-active {
-  background-color: #444;
+  background-color: #17a2b8;
   color: white;
-  border-left: 3px solid #007bff;
+  border-left-color: #138496;
 }
 
 .nav-subitem svg {
