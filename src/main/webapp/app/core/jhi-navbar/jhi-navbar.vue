@@ -80,7 +80,7 @@
             <font-awesome-icon icon="sign-out-alt" />
             <span>Sign out</span>
           </a>
-          <a v-if="!authenticated" @click="showLogin()" class="nav-subitem" data-cy="login">
+          <a v-if="!authenticated" @click="login()" class="nav-subitem" data-cy="login">
             <font-awesome-icon icon="sign-in-alt" />
             <span>Sign in</span>
           </a>
