@@ -17,7 +17,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "userLogin",
+      "fieldName": "userUUID",
       "fieldType": "String",
       "fieldValidateRules": ["required"]
     }

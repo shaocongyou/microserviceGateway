@@ -19,10 +19,10 @@
             <span>{{ standardProcedures.specification }}</span>
           </dd>
           <dt>
-            <span>User Login</span>
+            <span>User UUID</span>
           </dt>
           <dd>
-            <span>{{ standardProcedures.userLogin }}</span>
+            <span>{{ standardProcedures.userUUID }}</span>
           </dd>
         </dl>
         <button type="submit" @click.prevent="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

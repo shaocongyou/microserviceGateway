@@ -42,19 +42,19 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="form-control-label" for="standard-procedures-userLogin">User Login</label>
+            <label class="form-control-label" for="standard-procedures-userUUID">User UUID</label>
             <input
               type="text"
               class="form-control"
-              name="userLogin"
-              id="standard-procedures-userLogin"
-              data-cy="userLogin"
-              :class="{ valid: !v$.userLogin.$invalid, invalid: v$.userLogin.$invalid }"
-              v-model="v$.userLogin.$model"
+              name="userUUID"
+              id="standard-procedures-userUUID"
+              data-cy="userUUID"
+              :class="{ valid: !v$.userUUID.$invalid, invalid: v$.userUUID.$invalid }"
+              v-model="v$.userUUID.$model"
               required
             />
-            <div v-if="v$.userLogin.$anyDirty && v$.userLogin.$invalid">
-              <small class="form-text text-danger" v-for="error of v$.userLogin.$errors" :key="error.$uid">{{ error.$message }}</small>
+            <div v-if="v$.userUUID.$anyDirty && v$.userUUID.$invalid">
+              <small class="form-text text-danger" v-for="error of v$.userUUID.$errors" :key="error.$uid">{{ error.$message }}</small>
             </div>
           </div>
         </div>

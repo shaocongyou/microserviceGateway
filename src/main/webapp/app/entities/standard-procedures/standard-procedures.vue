@@ -60,9 +60,9 @@
               <span>Specification</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'specification'"></jhi-sort-indicator>
             </th>
-            <th scope="row" @click="changeOrder('userLogin')">
-              <span>User Login</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'userLogin'"></jhi-sort-indicator>
+            <th scope="row" @click="changeOrder('userUUID')">
+              <span>User UUID</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'userUUID'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
           </tr>
@@ -76,7 +76,7 @@
             </td>
             <td>{{ standardProcedures.isActive }}</td>
             <td>{{ standardProcedures.specification }}</td>
-            <td>{{ standardProcedures.userLogin }}</td>
+            <td>{{ standardProcedures.userUUID }}</td>
             <td class="text-right">
               <div class="btn-group">
                 <router-link

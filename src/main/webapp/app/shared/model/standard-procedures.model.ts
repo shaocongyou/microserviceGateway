@@ -2,7 +2,7 @@ export interface IStandardProcedures {
   id?: number;
   isActive?: boolean;
   specification?: string;
-  userLogin?: string;
+  userUUID?: string;
 }
 
 export class StandardProcedures implements IStandardProcedures {
@@ -10,7 +10,7 @@ export class StandardProcedures implements IStandardProcedures {
     public id?: number,
     public isActive?: boolean,
     public specification?: string,
-    public userLogin?: string,
+    public userUUID?: string,
   ) {
     this.isActive = this.isActive ?? false;
   }

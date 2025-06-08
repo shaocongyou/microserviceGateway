@@ -48,7 +48,7 @@ export default defineComponent({
       specification: {
         required: validations.required('This field is required.'),
       },
-      userLogin: {
+      userUUID: {
         required: validations.required('This field is required.'),
       },
     };

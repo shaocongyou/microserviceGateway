@@ -73,7 +73,7 @@ describe('Service Tests', () => {
       });
 
       it('should update a StandardProcedures', async () => {
-        const returnedFromService = { isActive: true, specification: 'BBBBBB', userLogin: 'BBBBBB', ...elemDefault };
+        const returnedFromService = { isActive: true, specification: 'BBBBBB', userUUID: 'BBBBBB', ...elemDefault };
 
         const expected = { ...returnedFromService };
         axiosStub.put.resolves({ data: returnedFromService });
@@ -118,7 +118,7 @@ describe('Service Tests', () => {
       });
 
       it('should return a list of StandardProcedures', async () => {
-        const returnedFromService = { isActive: true, specification: 'BBBBBB', userLogin: 'BBBBBB', ...elemDefault };
+        const returnedFromService = { isActive: true, specification: 'BBBBBB', userUUID: 'BBBBBB', ...elemDefault };
         const expected = { ...returnedFromService };
         axiosStub.get.resolves([returnedFromService]);
         return service.retrieve({ sort: {}, page: 0, size: 10 }).then(res => {
