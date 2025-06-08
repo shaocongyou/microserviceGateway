@@ -29,6 +29,14 @@
         </div>
       </div>
 
+      <!-- Standard Procedures Menu -->
+      <div v-if="hasAnyAuthority('ROLE_USER') && authenticated" class="nav-item-group">
+        <router-link to="/user/standard-procedures" class="nav-item">
+          <font-awesome-icon icon="sticky-note" />
+          <span>规范流程</span>
+        </router-link>
+      </div>
+
       <!-- Administration Menu -->
       <div v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated" class="nav-item-group">
         <div class="nav-item-header" @click="toggleSubmenu('admin')">

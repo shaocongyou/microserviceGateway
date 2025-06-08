@@ -5,6 +5,7 @@ const Error = () => import('@/core/error/error.vue');
 import admin from '@/router/admin';
 import entities from '@/router/entities';
 import pages from '@/router/pages';
+import user from '@/router/user';
 
 export const createRouter = () =>
   createVueRouter({
@@ -30,6 +31,7 @@ export const createRouter = () =>
       ...admin,
       entities,
       ...pages,
+      ...user,
     ],
   });
 
